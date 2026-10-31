@@ -38,7 +38,8 @@ def test_explicit_allow_override_is_limited():
 
 
 def test_secret_values_are_absent_from_serialized_redaction():
-    raw = {"GITHUB_TOKEN": "ghp_thisisasecretvalue1234567890", "PASSWORD": "hunter2"}
+    fake_token = "ghp_" + "x" * 36
+    raw = {"GITHUB_TOKEN": fake_token, "PASSWORD": "hunter2"}
     redacted = redact_env(raw)
     blob = repr(redacted)
     assert "ghp_" not in blob
